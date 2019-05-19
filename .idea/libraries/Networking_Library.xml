@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Networking Library">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Networking Library.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
