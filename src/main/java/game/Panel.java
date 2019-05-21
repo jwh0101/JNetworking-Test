@@ -1,5 +1,7 @@
 package game;
 
+import net.Server;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,6 +39,7 @@ public class Panel extends JFrame implements ActionListener {
                 if (e.getSource() == spaces[r][c]) {
                     try {
                         game.click(new Point(r, c), spaces, this);
+                        break;
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

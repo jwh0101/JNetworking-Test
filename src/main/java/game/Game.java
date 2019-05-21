@@ -8,15 +8,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class Game implements Serializable {
+public class Game {
 
     public static final int X = 0;
     public static final int O = 1;
 
-    Server myServer;
-    Client myClient;
+    private Client myClient;
 
     private int type;
+
+    private static Panel panel;
 
     public Game(int type) {
         this.type = type;
@@ -37,29 +38,19 @@ public class Game implements Serializable {
     public void click(Point coordinate, Button[][] spaces, Panel panel) throws IOException {
         if (type == X) {
             spaces[coordinate.x][coordinate.y].setLabel("X");
-            Command<ClickPackage> spaceClicked = Server.getSpaceClicked();
+            Command<ClickPackage> spaceClicked = new Command<>(Server.getSpaceClicked().getName());
             ClickPackage packet = new ClickPackage(X, coordinate);
             spaceClicked.setObject(packet);
             myClient.requestCommand(spaceClicked);
+            spaceClicked.setObject(null);
         } else {
             spaces[coordinate.x][coordinate.y].setLabel("O");
-            Command<ClickPackage> spaceClicked = Server.getSpaceClicked();
+            Command<ClickPackage> spaceClicked = new Command<>(Server.getSpaceClicked().getName());
             ClickPackage packet = new ClickPackage(O, coordinate);
             spaceClicked.setObject(packet);
             myClient.requestCommand(spaceClicked);
         }
     }
 
-    public static void otherPlayerClick(Object object) {
-        ClickPackage packet = (ClickPackage) object;
-        int r = packet.getCoordinates().x;
-        int c = packet.getCoordinates().y;
 
-        if (packet.getType() == X) {
-            //packet.getPanel().getSpaces()[r][c].setLabel("X");
-            System.out.println(packet.getCoordinates());
-        } else {
-            //packet.getPanel().getSpaces()[r][c].setLabel("O");
-        }
-    }
 }
