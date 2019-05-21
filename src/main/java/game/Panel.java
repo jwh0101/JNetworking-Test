@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Panel extends JFrame implements ActionListener {
 
@@ -25,6 +26,7 @@ public class Panel extends JFrame implements ActionListener {
 
         this.game = game;
 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -33,9 +35,21 @@ public class Panel extends JFrame implements ActionListener {
         for (int r = 0; r < spaces.length; r++) {
             for (int c = 0; c < spaces[r].length; c++) {
                 if (e.getSource() == spaces[r][c]) {
-                    game.click(new Point(r, c), spaces);
+                    try {
+                        game.click(new Point(r, c), spaces, this);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         }
+    }
+
+    public Button[][] getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(Button[][] spaces) {
+        this.spaces = spaces;
     }
 }

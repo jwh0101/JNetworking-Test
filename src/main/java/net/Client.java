@@ -3,9 +3,11 @@ package net;
 import lib.misc.Command;
 import lib.net.JClient;
 
-public class MyClient extends JClient {
+import java.io.Serializable;
 
-    public MyClient(String server_ip, int port, String username) {
+public class Client extends JClient {
+
+    public Client(String server_ip, int port, String username) {
         super(server_ip, port, username);
     }
 
